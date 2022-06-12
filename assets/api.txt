@@ -1,0 +1,5 @@
+- IPv4-Addresse: 45.88.109.20
+- Port: 22
+- Benutzer: root
+- Passwort: f2c1aaa9a4b0
+s

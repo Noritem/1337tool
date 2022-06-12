@@ -4,6 +4,7 @@ from requests import get
 import requests
 from os import system
 from colorama import Fore, init, Style
+from selenium import webdriver
 
 #Change The Console Title
 mytitle = "1337 - Toolstown"
@@ -19,7 +20,7 @@ banner = f"""{Fore.RED}
                         ██║ ╚═══██╗ ╚═══██╗   ██╔╝        ██║   ██║   ██║██║   ██║██║     
                         ██║██████╔╝██████╔╝   ██║         ██║   ╚██████╔╝╚██████╔╝███████╗
                         ╚═╝╚═════╝ ╚═════╝    ╚═╝         ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝{Style.RESET_ALL}
-                                                {Fore.MAGENTA}By ! Smash#1337{Style.RESET_ALL}                                                                                                                
+                                                {Fore.MAGENTA}By Smash#1337{Style.RESET_ALL}                                                                                                                
 """
 
 
@@ -38,7 +39,7 @@ def mainanswer():
     print(f'{banner}')
     print('\n')
     print(f'                            [1] > {Fore.RED}DC Account Checker{Style.RESET_ALL}          [3] > {Fore.MAGENTA}Nitro Generator{Style.RESET_ALL}')
-    print(f'                            [2] > {Fore.RED}IP Lockup{Style.RESET_ALL}                   [4] > {Fore.MAGENTA}Soon{Style.RESET_ALL}')
+    print(f'                            [2] > {Fore.RED}IP Lockup{Style.RESET_ALL}                   [4] > {Fore.MAGENTA}Token Login{Style.RESET_ALL}')
     print('\n')
     print('\n')
 
@@ -50,7 +51,9 @@ def mainanswer():
     if answer == '2':
         ip()
     if answer == '3':
-        nitro()        
+        nitro()   
+    if answer == '4':
+        login()      
     else:
         print('Incorrect selection, please choose a number')
         mainanswer()
@@ -72,6 +75,30 @@ def nitro():
             f.write(f"discord.gift/{code}\n")
         else:
             print(f"[{update_time()}] {Fore.RED}[-]{Fore.RESET}  discord.gift/{code}")  
+
+#Token Login via Crhome
+def login():
+    System.Clear()
+    token = input("Token Here > ")
+    print(banner)
+    print()
+    opts = webdriver.ChromeOptions()
+    opts.add_experimental_option("detach", True)
+    driver = webdriver.Chrome("assets/chromedriver.exe", options=opts)
+    script = """
+            function login(token) {
+            setInterval(() => {
+            document.body.appendChild(document.createElement `iframe`).contentWindow.localStorage.token = `"${token}"`
+            }, 50);
+            setTimeout(() => {
+            location.reload();
+            }, 2500);
+            }   
+            """
+    driver.get("https://discordapp.com/login")
+    driver.execute_script(script + f'\nlogin("{token}")')
+    print(f'{Fore.GREEN} Wait 10 Sec ')
+    mainanswer()
 
 #Simple IP Lookup
 def ip():
